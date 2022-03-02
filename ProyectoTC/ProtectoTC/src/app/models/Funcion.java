@@ -3,23 +3,34 @@ package app.models;
 import java.util.ArrayList;
 
 public class Funcion extends ID {
-    ArrayList<Variable> argumentos;
 
-    public ArrayList<Variable> getArgumentos() {
-        return argumentos;
+    private ArrayList<Variable> params;
+
+    public Funcion(){
+        this.params = new ArrayList<Variable>();
     }
 
-    public void setArgumentos(ArrayList<Variable> argumentos) {
-        this.argumentos = argumentos;
+    public Funcion(String tipoDato, String nombre, Boolean inicializado, Boolean usado) {
+        super(tipoDato, nombre, inicializado, usado);
+        this.params = new ArrayList<Variable>();
     }
 
-    public void addArgumento(Variable arg) {
-        if(this.argumentos != null){
-            this.argumentos.add(arg);
-        }else{
-            this.argumentos = new ArrayList<Variable>();
-            this.argumentos.add(arg);
-        }
-        
-    }  
+
+    public ArrayList<Variable> getParams() {
+        return params;
+    }
+
+    public void setParams(ArrayList<Variable> params) {
+        this.params = params;
+    }
+
+    public boolean areParametersEquals(ArrayList<Variable> parameters){
+        return this.params.equals(parameters);    
+    }
+
+    @Override
+    public String toString() {
+        return getTipoDato() + " " + getNombre() + "(" + this.params.toString() + ")";     
+
+    }
 }

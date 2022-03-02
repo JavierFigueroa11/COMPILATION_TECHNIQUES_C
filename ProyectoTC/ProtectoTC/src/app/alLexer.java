@@ -1,5 +1,3 @@
-// Generated from /home/sofia/Documentos/Facu/LexerSimple/src/app/reglas.g4 by ANTLR 4.7.1
-
 package app;
 
 import org.antlr.v4.runtime.Lexer;

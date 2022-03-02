@@ -7,7 +7,8 @@ grammar reglas;
 fragment LETRA : [A-Za-z];
 fragment DIGITO : [0-9];
 
-WS : [ \n\t\r] -> skip;
+WS : [ \n\t] -> skip;
+OTRO : '.' ;
 
 //Simbolos de apertura
 PA: '(';
@@ -50,10 +51,10 @@ MODULOIGUAL : '%=';
 IGUAL : '=';
 
 /*TIPO DE DATOS MAS COMUNES */
-INT : 'int';
-CHAR : 'char';
-DOUBLE : 'double';
-VOID : 'void';
+INT 	: 'int'    ;
+DOUBLE 	: 'double' ;
+CHAR 	: 'char'   ;
+VOID    : 'void'   ;
 
 /*CICLOS */
 FOR : 'for';
@@ -67,11 +68,10 @@ PYC : ';';
 RETURN : 'return';
 
 /* ID Y NUMERO */
-ID:(LETRA|'_')((LETRA|NUMERO|'_')+)?;
-NUMERO : DIGITO+ ; 
-CARACTER : '\u0000'..'\uFFFE' ;
-VALORCHAR: '\'' CARACTER '\''  ;
-NUMDOUBLE: NUMERO '.' NUMERO;  
+ID:(LETRA|'_')((LETRA|DIGITO|'_')+)?;
+INTEGER : DIGITO+;
+DECIMAL : INTEGER'.'INTEGER;
+CHARACTER: '\''(LETRA|OTRO|DIGITO)'\'';
 
 //-------------------------------------
 prog : instrucciones EOF;
@@ -81,179 +81,151 @@ instrucciones : instruccion instrucciones
               ;
 
 instruccion : bloque
-            | declaracionDatos PYC
-            | asignacionDatos PYC
-            | expresion PYC
-            | definicionFuncion
-            | llamadaFuncion
+            | declaracion PYC
+            | asignacion PYC
+            | prototipoFuncion PYC
+            | funcion
+            | llamadaFuncion PYC
             | cicloFor
             | cicloWhile
             | cicloIf
-            | returnDatos PYC
-            | PYC
-            | errorPYC
+            | returnD PYC    
             ;
+
 
 bloque : LA instrucciones LC 
         ;
 
-tipodato : INT | CHAR | DOUBLE | VOID ;
+tipodato : INT 
+        | CHAR 
+        | DOUBLE 
+        | VOID 
+        ;
 
-asignacionDatos : ID asignacion//x = 0
-                ;
+asignacion : ID asignacionValor//x = 0
+            ;
 
-declaracionDatos : tipodato ID //int x
-                |  tipodato ID asignacion//int x = 0
-                ;
+declaracion : tipodato ID
+            | tipodato ID asignacion
+            ;
 
 // = += -= *= /= %=
-asignacion : IGUAL exprLog
-           | MASIGUAL exprLog
-           | MENOSIGUAL exprLog
-           | PORIGUAL exprLog
-           | BARRAIGUAL exprLog
-           | MODULOIGUAL exprLog
-           ;
+asignacionValor : IGUAL operacion
+                ;
+
+operacion: exprLog
+         |
+         ;
+
+exprLog : exprOR disy
+        ; 
 
 //OR
-exprLog : exprLog OR exprAND 
-        | exprAND
+exprOR : exprAND disy
         ;
 
-//AND
-exprAND : exprAND AND exprNOT
-        | exprNOT
+disy : OR exprAND disy
+     |
+     ;
+
+exprAND : exprIgualdad conj
+        |
         ;
 
-//NOT
-exprNOT : NOT exprNOT
-        | exprComp 
+conj : AND exprIgualdad conj
+     |
+     ;
+
+exprIgualdad: expresion comp
+        |
+        ;
+
+comp : comparaciones expresion comp
+        |
         ;
 
 // == > < >= <= !=
-exprComp : exprArit EQ exprArit
-        | exprArit MAY exprArit
-        | exprArit MEN exprArit
-        | exprArit MAYIG exprArit
-        | exprArit MENIG exprArit
-        | exprArit DIS exprArit
-        | exprArit
+comparaciones : EQ 
+            | MAY 
+            | MEN 
+            | MAYIG 
+            | MENIG 
+            | DIS 
+            ;
+
+expresion : termino exp
+          ;
+
+exp: SUM termino exp
+    | RES termino exp
+    |
+    ;
+
+termino: factor term
         ;
 
-// + - * / %
-exprArit : exprArit SUM exprArit
-        | exprArit RES exprArit
-        | exprArit MUL exprArit
-        | exprArit DIV exprArit
-        | exprArit MOD exprArit
-        | factor
-        ;   
+term: MUL factor term
+    | DIV factor term
+    | MOD factor term
+    |
+    ; 
 
-factor : f NUMERO
+factor : f PA exprLog PC
+       | f llamadaFuncion
+       | f INTEGER 
        | f ID
-       | f NUMDOUBLE 
-       | f VALORCHAR
-       | PA expresion PC
+       | f DECIMAL 
+       | f CHARACTER
+       | ID f
+       |
        ;
-
-// x++ 
-expresion : ID MASIGUAL expresion
-          | ID MENOSIGUAL expresion
-          | ID PORIGUAL expresion
-          | ID BARRAIGUAL expresion
-          | ID MODULOIGUAL expresion
-          | ID INCREMENT
-          | ID DECREMENT
-          | exprLog
-          ;
 
 f : SUM
   | RES
-  | NOT
+  | INCREMENT
+  | DECREMENT
+  | PYC
   |
   ;
 
-definicionFuncion : tipodato ID PA parametros PC instruccion
-                  | errorPADefFuncion
-                  | errorPCDefFuncion
-                  ;
+/* Funciones */
 
-parametros : tipodato ID parametros
-            | COMA tipodato ID parametros
-            | COMA ID parametros
-            | ID parametros
-            |
-            ;
+/* Defincion de la funcion */
+funcion : tipodato ID PA parametrosFuncion PC bloque
+        ;
 
-llamadaFuncion : ID PA parametros PC
-                |errorPALlamadaFuncion
-                |errorPCLlamadaFuncion
+prototipoFuncion : tipodato ID PA parametrosFuncion PC
+                ;
+
+
+parametrosFuncion: tipodato ID
+        | tipodato ID COMA parametrosFuncion
+        |
+        ;
+
+
+/* nombreFuncion(p1) */
+llamadaFuncion : ID PA parametrosLlamada PC
                ;
 
+parametrosLlamada : operacion COMA parametrosLlamada
+                | operacion
+                |
+                ;
 
-cicloFor : FOR PA declaracionDatos PYC exprLog PYC expresion PC instruccion
-        |errorPAFor
-        |errorPCFor
+/* Ciclos */
+
+cicloFor : FOR PA asignacion operacion PYC operacion PC instruccion
         ;
 
-cicloWhile : WHILE PA exprLog PC instruccion
-           |errorPAWhile
-           |errorPCWhile
+cicloWhile : WHILE PA operacion PC bloque
             ;
  
-cicloIf : IF PA exprLog PC instruccion
-        | IF PA exprLog PC instruccion ELSE instruccion
-        | errorPAIf
-        | errorPCIf
-         ;
-
-returnDatos: RETURN exprLog
-        | RETURN
+cicloIf : IF PA operacion PC instruccion
+        | IF PA operacion PC bloque ELSE bloque
+        | IF PA operacion PC instruccion ELSE instruccion
         ;
 
-/* Errores sintácticos */
-
-/*Punto y coma */
-errorPYC : declaracionDatos 
-         | asignacionDatos
-         | definicionFuncion
-         | returnDatos
-         | expresion
-         | PYC
-         ;
-
-/* Parentesis PC*/
-errorPAFor : FOR declaracionDatos PYC exprLog PYC expresion PC instruccion
-        ;
-
-errorPAWhile: WHILE exprLog PC instruccion
-             ;
-
-
-errorPAIf : IF exprLog PC instruccion
-        | IF exprLog PC instruccion ELSE instruccion
-        ;
-
-errorPALlamadaFuncion : tipodato ID parametros PC instruccion;
-
-errorPADefFuncion : tipodato ID parametros PC instruccion
-        | tipodato ID parametros PC ;
-
-
-/* Parentesis PC*/
-errorPCFor : FOR PA declaracionDatos PYC exprLog PYC expresion instruccion
-        ;
-
-errorPCWhile: WHILE PA exprLog instruccion
-             ;
-
-
-errorPCIf : IF PA exprLog instruccion
-        | IF PA exprLog instruccion ELSE instruccion
-        ;
-
-errorPCLlamadaFuncion : tipodato ID PA parametros instruccion;
-
-errorPCDefFuncion : tipodato ID PA parametros instruccion
-        | ID PA parametros 
+/* Return */
+returnD: RETURN (operacion | )
         ;

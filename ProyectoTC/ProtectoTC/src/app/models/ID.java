@@ -1,18 +1,29 @@
 package app.models;
 
-public class ID {
+public abstract class ID {
 
-    String tipoDato;
-    String nombre;  
-    Boolean inicializado;
-    Boolean usado;
-    int idContexto;
+    private String tipoDato;
+    private String nombre;  
+    private Boolean inicializado;
+    private Boolean usado;
+    private String valor;
 
-    //getters and setters
-    public String gettipoDato(){
+    
+    public ID() {
+
+    }
+
+    public ID(String tipoDato, String nombre, Boolean inicializado, Boolean usado) {
+        this.tipoDato = tipoDato;
+        this.nombre = nombre;
+        this.inicializado = inicializado;
+        this.usado = usado;
+    }
+
+    public String getTipoDato(){
         return tipoDato;
     }
-    public void settipoDato(String tipoDato) {
+    public void setTipoDato(String tipoDato) {
         this.tipoDato = tipoDato;
     }
 
@@ -24,7 +35,7 @@ public class ID {
         this.nombre = nombre;
     }
 
-    public Boolean getInicializado() {
+    public Boolean isInicializado() {
         return inicializado;
     }
 
@@ -40,17 +51,17 @@ public class ID {
         this.usado = usado;  
     }
     
-    public String getIdContexto() {
-        return nombre;
+    public String getValor() {
+        return this.valor;
     }
 
-    public void setIdContexto(int idContexto) {
-        this.idContexto = idContexto;
+    public void setValor(String valor) {
+        this.valor = valor;
     }
 
     @Override
     public String toString() {
-        return "Tipo:" + this.tipoDato + ", " + " Nombre:" + this.nombre + " usada:" + this.usado;
+        return "Tipo:" + this.tipoDato + " " + " Nombre:" + this.nombre + " usada:" + this.usado;
 
     }
 }

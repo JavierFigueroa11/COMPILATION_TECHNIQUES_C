@@ -2,53 +2,121 @@ package app.models;
 
 import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.ListIterator;
-import java.util.Map;
+
+
+import java.util.ArrayList;
 
 public class TablaSimbolos {
 
-    List<Map<String,ID>> contexto;
+    private LinkedList<HashMap<String,ID>> tablaSimbolo; 
 
     public TablaSimbolos(){
-        contexto = new LinkedList<Map<String,ID>>();
+        tablaSimbolo = new LinkedList<HashMap<String,ID>>();
     }
 
+    /* Creo el contexto(mapa) dentro de la lista */
     public void agregarContexto(){
-        contexto.add(new HashMap<>());
+        HashMap<String, ID> contexto = new HashMap<String, ID>();
+        this.tablaSimbolo.add(contexto);
+    }
+
+    public void addParamContext(){
+        HashMap<String, ID> context = new HashMap<String, ID>();
+        this.tablaSimbolo.add(context);
     }
     
-    public Map<String,ID> getContexto(){
-        return ((LinkedList<Map<String,ID>>)contexto).getLast();
-    }
-
-    public void agregarID(ID id){
-        getContexto().put(id.getIdContexto(), id);
-    }
-
-    public ID encontrarIDLocal(String id){
-        return getContexto().get(id);
-    }
-
-    public ID encontrarTodosID(String id){
-        ID i = encontrarIDLocal(id);
-        ListIterator<Map<String,ID>> iterador = contexto.listIterator(contexto.size()-1);
-
-        while(iterador.hasPrevious() && (i == null)){
-            i = iterador.previous().get(id);
-        }
-
-        return i;
-    }
-
+    /* elimino el nuevo mapa -contexto- d la lista*/
     public void eliminarContexto(){
-        if(contexto.size() > 1){
-            ((LinkedList<Map<String,ID>>)contexto).removeLast();
+        this.tablaSimbolo.removeLast();
+    }
+
+    public void insertFunction(ID function){
+        if (this.tablaSimbolo.size()>1){
+            this.tablaSimbolo.get(this.tablaSimbolo.size()-2).put(function.getNombre(), function);
+        } else{
+            this.tablaSimbolo.get(this.tablaSimbolo.size()-1).put(function.getNombre(), function);
         }
+    }
+    
+    public int getContexto(){
+        return this.tablaSimbolo.size();
+    }
+
+    public HashMap<String,ID> getContextos(){
+        return ((LinkedList<HashMap<String,ID>>)tablaSimbolo).getLast();
+    }
+
+    /*agrego al contexto actual que es el ultimo mapa de la lista*/
+    public void agregarId(ID id){
+        this.tablaSimbolo.getLast().put(id.getNombre(), id);
+    }
+
+    public ID encontrarIdLocal(String nombre){
+        ID aux = tablaSimbolo.getLast().get(nombre);
+        if(aux != null){
+            return aux;
+        }
+        return null;
+    }
+
+    public ID encontrarId(String nombre){
+        ID aux = tablaSimbolo.getLast().get(nombre);
+
+        if(aux != null){
+            return aux;
+        }else{
+            ListIterator<HashMap<String, ID>> iterador = this.tablaSimbolo.listIterator(tablaSimbolo.size()-1);
+
+            while(iterador.hasPrevious()){
+                aux = iterador.previous().get(nombre);
+                if(aux != null)
+                    return aux;
+            }
+        }
+        
+        return aux;
+    }
+
+    public ArrayList<String> sinUso(){
+
+        ArrayList<String> variablesSinUSo = new ArrayList<String>();
+
+        HashMap<String, ID> aux = this.tablaSimbolo.getLast();
+
+        for(ID id : aux.values()){
+
+            if(id instanceof Funcion && id.getNombre().equals("main")){
+                continue;
+            }
+
+            if(!id.isUsado()){
+                variablesSinUSo.add(id.getNombre());
+            }
+
+        }
+
+        return variablesSinUSo;
+    }
+
+    public void imprimirTablaSimbolo(){
+        int ctx = 1;
+        System.out.println("\n=== SYMBOL TABLE ===");
+        for (HashMap<String, ID> entry : this.tablaSimbolo) {
+            System.out.println("Contexto: " + ctx++ + " {");
+            for(ID id : entry.values()) {
+                System.out.println("    " + id.toString());
+            }
+            System.out.println("}");
+        }
+    }
+
+    public LinkedList<HashMap<String, ID>> getTablaSimbolos() {
+        return tablaSimbolo;
     }
 
     @Override
     public String toString(){
-        return "Tabla de Simbolos - contextos" + contexto;
-    }
+        return tablaSimbolo.toString();
+    }    
 }

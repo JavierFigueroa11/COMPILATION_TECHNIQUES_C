@@ -1,4 +1,4 @@
-// Generated from /home/sofia/Documentos/Facu/LexerSimple (copia) (2)/src/app/reglas.g4 by ANTLR 4.7.1
+// Generated from /home/javierfigueroa/Documentos/Tecnicas de Compilación/COMPILATION_TECHNIQUES_C/ProyectoTC/ProtectoTC/src/app/reglas.g4 by ANTLR 4.8
 
     package app;
 
@@ -78,30 +78,6 @@ public class reglasBaseListener implements reglasListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterAsignacionDatos(reglasParser.AsignacionDatosContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitAsignacionDatos(reglasParser.AsignacionDatosContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterDeclaracionDatos(reglasParser.DeclaracionDatosContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitDeclaracionDatos(reglasParser.DeclaracionDatosContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterAsignacion(reglasParser.AsignacionContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -109,6 +85,42 @@ public class reglasBaseListener implements reglasListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitAsignacion(reglasParser.AsignacionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterDeclaracion(reglasParser.DeclaracionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitDeclaracion(reglasParser.DeclaracionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterAsignacionValor(reglasParser.AsignacionValorContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitAsignacionValor(reglasParser.AsignacionValorContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterOperacion(reglasParser.OperacionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitOperacion(reglasParser.OperacionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -126,6 +138,30 @@ public class reglasBaseListener implements reglasListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterExprOR(reglasParser.ExprORContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitExprOR(reglasParser.ExprORContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterDisy(reglasParser.DisyContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitDisy(reglasParser.DisyContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterExprAND(reglasParser.ExprANDContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -138,49 +174,49 @@ public class reglasBaseListener implements reglasListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterExprNOT(reglasParser.ExprNOTContext ctx) { }
+	@Override public void enterConj(reglasParser.ConjContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitExprNOT(reglasParser.ExprNOTContext ctx) { }
+	@Override public void exitConj(reglasParser.ConjContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterExprComp(reglasParser.ExprCompContext ctx) { }
+	@Override public void enterExprIgualdad(reglasParser.ExprIgualdadContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitExprComp(reglasParser.ExprCompContext ctx) { }
+	@Override public void exitExprIgualdad(reglasParser.ExprIgualdadContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterExprArit(reglasParser.ExprAritContext ctx) { }
+	@Override public void enterComp(reglasParser.CompContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitExprArit(reglasParser.ExprAritContext ctx) { }
+	@Override public void exitComp(reglasParser.CompContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterFactor(reglasParser.FactorContext ctx) { }
+	@Override public void enterComparaciones(reglasParser.ComparacionesContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitFactor(reglasParser.FactorContext ctx) { }
+	@Override public void exitComparaciones(reglasParser.ComparacionesContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -198,6 +234,54 @@ public class reglasBaseListener implements reglasListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterExp(reglasParser.ExpContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitExp(reglasParser.ExpContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterTermino(reglasParser.TerminoContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitTermino(reglasParser.TerminoContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterTerm(reglasParser.TermContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitTerm(reglasParser.TermContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterFactor(reglasParser.FactorContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFactor(reglasParser.FactorContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterF(reglasParser.FContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -210,25 +294,37 @@ public class reglasBaseListener implements reglasListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterDefinicionFuncion(reglasParser.DefinicionFuncionContext ctx) { }
+	@Override public void enterFuncion(reglasParser.FuncionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitDefinicionFuncion(reglasParser.DefinicionFuncionContext ctx) { }
+	@Override public void exitFuncion(reglasParser.FuncionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterParametros(reglasParser.ParametrosContext ctx) { }
+	@Override public void enterPrototipoFuncion(reglasParser.PrototipoFuncionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitParametros(reglasParser.ParametrosContext ctx) { }
+	@Override public void exitPrototipoFuncion(reglasParser.PrototipoFuncionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterParametrosFuncion(reglasParser.ParametrosFuncionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitParametrosFuncion(reglasParser.ParametrosFuncionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -241,6 +337,18 @@ public class reglasBaseListener implements reglasListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitLlamadaFuncion(reglasParser.LlamadaFuncionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterParametrosLlamada(reglasParser.ParametrosLlamadaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitParametrosLlamada(reglasParser.ParametrosLlamadaContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -282,145 +390,13 @@ public class reglasBaseListener implements reglasListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterReturnDatos(reglasParser.ReturnDatosContext ctx) { }
+	@Override public void enterReturnD(reglasParser.ReturnDContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitReturnDatos(reglasParser.ReturnDatosContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterErrorPYC(reglasParser.ErrorPYCContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitErrorPYC(reglasParser.ErrorPYCContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterErrorPAFor(reglasParser.ErrorPAForContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitErrorPAFor(reglasParser.ErrorPAForContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterErrorPAWhile(reglasParser.ErrorPAWhileContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitErrorPAWhile(reglasParser.ErrorPAWhileContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterErrorPAIf(reglasParser.ErrorPAIfContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitErrorPAIf(reglasParser.ErrorPAIfContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterErrorPALlamadaFuncion(reglasParser.ErrorPALlamadaFuncionContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitErrorPALlamadaFuncion(reglasParser.ErrorPALlamadaFuncionContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterErrorPADefFuncion(reglasParser.ErrorPADefFuncionContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitErrorPADefFuncion(reglasParser.ErrorPADefFuncionContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterErrorPCFor(reglasParser.ErrorPCForContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitErrorPCFor(reglasParser.ErrorPCForContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterErrorPCWhile(reglasParser.ErrorPCWhileContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitErrorPCWhile(reglasParser.ErrorPCWhileContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterErrorPCIf(reglasParser.ErrorPCIfContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitErrorPCIf(reglasParser.ErrorPCIfContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterErrorPCLlamadaFuncion(reglasParser.ErrorPCLlamadaFuncionContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitErrorPCLlamadaFuncion(reglasParser.ErrorPCLlamadaFuncionContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterErrorPCDefFuncion(reglasParser.ErrorPCDefFuncionContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitErrorPCDefFuncion(reglasParser.ErrorPCDefFuncionContext ctx) { }
+	@Override public void exitReturnD(reglasParser.ReturnDContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

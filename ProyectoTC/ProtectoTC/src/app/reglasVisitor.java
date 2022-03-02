@@ -1,4 +1,4 @@
-// Generated from /home/sofia/Documentos/Facu/LexerSimple (copia) (2)/src/app/reglas.g4 by ANTLR 4.7.1
+// Generated from /home/javierfigueroa/Documentos/Tecnicas de Compilación/COMPILATION_TECHNIQUES_C/ProyectoTC/ProtectoTC/src/app/reglas.g4 by ANTLR 4.8
 
     package app;
 
@@ -43,23 +43,29 @@ public interface reglasVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitTipodato(reglasParser.TipodatoContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link reglasParser#asignacionDatos}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitAsignacionDatos(reglasParser.AsignacionDatosContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link reglasParser#declaracionDatos}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitDeclaracionDatos(reglasParser.DeclaracionDatosContext ctx);
-	/**
 	 * Visit a parse tree produced by {@link reglasParser#asignacion}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitAsignacion(reglasParser.AsignacionContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link reglasParser#declaracion}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitDeclaracion(reglasParser.DeclaracionContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link reglasParser#asignacionValor}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAsignacionValor(reglasParser.AsignacionValorContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link reglasParser#operacion}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitOperacion(reglasParser.OperacionContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link reglasParser#exprLog}.
 	 * @param ctx the parse tree
@@ -67,35 +73,47 @@ public interface reglasVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitExprLog(reglasParser.ExprLogContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link reglasParser#exprOR}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExprOR(reglasParser.ExprORContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link reglasParser#disy}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitDisy(reglasParser.DisyContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link reglasParser#exprAND}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitExprAND(reglasParser.ExprANDContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link reglasParser#exprNOT}.
+	 * Visit a parse tree produced by {@link reglasParser#conj}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitExprNOT(reglasParser.ExprNOTContext ctx);
+	T visitConj(reglasParser.ConjContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link reglasParser#exprComp}.
+	 * Visit a parse tree produced by {@link reglasParser#exprIgualdad}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitExprComp(reglasParser.ExprCompContext ctx);
+	T visitExprIgualdad(reglasParser.ExprIgualdadContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link reglasParser#exprArit}.
+	 * Visit a parse tree produced by {@link reglasParser#comp}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitExprArit(reglasParser.ExprAritContext ctx);
+	T visitComp(reglasParser.CompContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link reglasParser#factor}.
+	 * Visit a parse tree produced by {@link reglasParser#comparaciones}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitFactor(reglasParser.FactorContext ctx);
+	T visitComparaciones(reglasParser.ComparacionesContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link reglasParser#expresion}.
 	 * @param ctx the parse tree
@@ -103,29 +121,65 @@ public interface reglasVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitExpresion(reglasParser.ExpresionContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link reglasParser#exp}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExp(reglasParser.ExpContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link reglasParser#termino}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTermino(reglasParser.TerminoContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link reglasParser#term}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTerm(reglasParser.TermContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link reglasParser#factor}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFactor(reglasParser.FactorContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link reglasParser#f}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitF(reglasParser.FContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link reglasParser#definicionFuncion}.
+	 * Visit a parse tree produced by {@link reglasParser#funcion}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitDefinicionFuncion(reglasParser.DefinicionFuncionContext ctx);
+	T visitFuncion(reglasParser.FuncionContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link reglasParser#parametros}.
+	 * Visit a parse tree produced by {@link reglasParser#prototipoFuncion}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitParametros(reglasParser.ParametrosContext ctx);
+	T visitPrototipoFuncion(reglasParser.PrototipoFuncionContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link reglasParser#parametrosFuncion}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitParametrosFuncion(reglasParser.ParametrosFuncionContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link reglasParser#llamadaFuncion}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitLlamadaFuncion(reglasParser.LlamadaFuncionContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link reglasParser#parametrosLlamada}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitParametrosLlamada(reglasParser.ParametrosLlamadaContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link reglasParser#cicloFor}.
 	 * @param ctx the parse tree
@@ -145,75 +199,9 @@ public interface reglasVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitCicloIf(reglasParser.CicloIfContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link reglasParser#returnDatos}.
+	 * Visit a parse tree produced by {@link reglasParser#returnD}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitReturnDatos(reglasParser.ReturnDatosContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link reglasParser#errorPYC}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitErrorPYC(reglasParser.ErrorPYCContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link reglasParser#errorPAFor}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitErrorPAFor(reglasParser.ErrorPAForContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link reglasParser#errorPAWhile}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitErrorPAWhile(reglasParser.ErrorPAWhileContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link reglasParser#errorPAIf}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitErrorPAIf(reglasParser.ErrorPAIfContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link reglasParser#errorPALlamadaFuncion}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitErrorPALlamadaFuncion(reglasParser.ErrorPALlamadaFuncionContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link reglasParser#errorPADefFuncion}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitErrorPADefFuncion(reglasParser.ErrorPADefFuncionContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link reglasParser#errorPCFor}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitErrorPCFor(reglasParser.ErrorPCForContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link reglasParser#errorPCWhile}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitErrorPCWhile(reglasParser.ErrorPCWhileContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link reglasParser#errorPCIf}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitErrorPCIf(reglasParser.ErrorPCIfContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link reglasParser#errorPCLlamadaFuncion}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitErrorPCLlamadaFuncion(reglasParser.ErrorPCLlamadaFuncionContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link reglasParser#errorPCDefFuncion}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitErrorPCDefFuncion(reglasParser.ErrorPCDefFuncionContext ctx);
+	T visitReturnD(reglasParser.ReturnDContext ctx);
 }

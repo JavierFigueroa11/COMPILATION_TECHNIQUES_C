@@ -1,238 +1,434 @@
 package app;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
+import org.antlr.v4.runtime.tree.ParseTree;
+import org.antlr.v4.runtime.tree.Trees;
+
+import app.reglasParser.DeclaracionContext;
+import app.reglasParser.FactorContext;
+import app.reglasParser.FuncionContext;
+import app.reglasParser.LlamadaFuncionContext;
+import app.reglasParser.
+ParametrosFuncionContext;
+import app.errores.ErroresEncontrados;
 import app.models.Funcion;
+import app.models.ID;
 import app.models.TablaSimbolos;
 import app.models.Variable;
 
+
 public class MiListener extends reglasBaseListener {
 
-    TablaSimbolos tablaS = new TablaSimbolos();
+    private static TablaSimbolos tablaSimbolos = new TablaSimbolos();
+    private ErroresEncontrados errores = new ErroresEncontrados();
 
-	@Override public void exitProg(reglasParser.ProgContext ctx) { 
-        System.out.println(tablaS.getContexto());
+    /* Inicio el programa */
+    @Override public void enterProg(reglasParser.ProgContext ctx) { 
+        tablaSimbolos.agregarContexto(); //ingreso al contexto
     }
- 
-	@Override public void enterBloque(reglasParser.BloqueContext ctx) { 
-        tablaS.agregarContexto();
-    }
- 
-	@Override public void exitBloque(reglasParser.BloqueContext ctx) { 
-        tablaS.eliminarContexto();
-    }
- 
-	@Override public void exitDeclaracionDatos(reglasParser.DeclaracionDatosContext ctx) { 
+    
+    /*Obtengo los parametros de prototipo y de la funcion*/
+    private ArrayList<Variable> obtenerParametros(ParametrosFuncionContext ctx, ArrayList<Variable> parametros) {
         
-        String id = ctx.ID().getText();
-        String tipoDato = ctx.tipodato().getText();
+        Collection<ParseTree> param = Trees.findAllRuleNodes(ctx, reglasParser.RULE_parametrosFuncion);
 
-        Boolean aux = true;
-
-        if(ctx.ID().getText().equals("<INVALID>")){
-            System.out.println("Error sintáctico: Formato incorrecto en lista de declaración de variables.");
-        }else{
-            if(tablaS.encontrarIDLocal(id) != null){
-                System.out.println("Error semántico: Variable duplicada en linea " + ctx.getStart().getLine());
-            } else{
-                Variable var = new Variable();
-                var.settipoDato(tipoDato);
-                var.setNombre(id);
-                var.setUsado(Boolean.FALSE);
-                
-                
-                if(ctx.getStop().getType() == 44){ //entero
-                    if(!ctx.tipodato().getText().equals("int")){
-                        System.out.println("Error semántico: Tipos de datos incompatibles en linea " + ctx.getStart().getLine());
-                        aux = false;
-                    }
-                } else if(ctx.getStop().getType() == 46){ //char
-                    if(!ctx.tipodato().getText().equals("char")){
-                        System.out.println("Error semántico: Tipos de datos incompatibles en linea " + ctx.getStart().getLine());
-                        aux = false;
-                    }
-                } else if(ctx.getStop().getType() == 47){ //double
-                    if(!ctx.tipodato().getText().equals("double")){
-                        System.out.println("Error semántico: Tipos de datos incompatibles en linea " + ctx.getStart().getLine());
-                        aux = false;
-                    }
-                } 
-
-                if(aux == true) {
-                    if(ctx.asignacion() != null){
-                        var.setInicializado(Boolean.TRUE);
-                    }
-                    tablaS.agregarID(var);
-                }
-            }    
-        }       
-    }
-
-	@Override public void exitAsignacionDatos(reglasParser.AsignacionDatosContext ctx) {
-        String id = ctx.ID().getText();
-
-        if(tablaS.encontrarTodosID(id) == null){
-            System.out.println("Error semántico: Se usó un identificador sin declarar. Linea " + ctx.getStart().getLine());
-        }else{
-            Variable var = new Variable();
-            var.setNombre(id);
-            var.setUsado(Boolean.TRUE);
-            var.setInicializado(Boolean.TRUE);
-            tablaS.agregarID(var);
-        }
-    }
-
-	@Override public void exitFactor(reglasParser.FactorContext ctx) { 
         if(ctx.ID() != null){
-            String id = ctx.ID().getText();
 
-            if(tablaS.encontrarTodosID(id) == null){
-                System.out.println("Error semántico: Se usó un identificador sin declarar. Linea " + ctx.getStart().getLine());
-            } else{
-                   if(tablaS.encontrarTodosID(id).getInicializado() == null){
-                        System.out.println("Error semántico: Se usó un identificador sin inicializar. Linea " + ctx.getStart().getLine());
-                    } else{
-                        Variable var = new Variable();
-                        var.setNombre(id);
-                        var.setUsado(Boolean.TRUE);
-                        var.setInicializado(Boolean.TRUE);
-                        tablaS.agregarID(var);
-                    } 
+            for(ParseTree parse : param){
+                ParametrosFuncionContext pfc = (ParametrosFuncionContext) parse;
+
+                Variable id = new Variable();
+                id.setTipoDato(pfc.tipodato().getText());
+                id.setNombre(pfc.ID().getText());
+                id.setInicializado(true);
+                id.setUsado(false);
+                parametros.add(id);            
+                
             }
 
-        }
+            return parametros;            
+
+        }else{
+            return null;
+        }             
     }
+    
+    /* Prototipo de la Funcion */
+    @Override public void exitPrototipoFuncion(reglasParser.PrototipoFuncionContext ctx) { 
 
-	@Override public void exitDefinicionFuncion(reglasParser.DefinicionFuncionContext ctx) { 
-       
-        String id = ctx.ID().getText();
-        String tipoDato = ctx.tipodato().getText();
-        Funcion func = new Funcion();
+        ArrayList<Variable> parametros = new ArrayList<>();
+        
+        parametros = obtenerParametros(ctx.parametrosFuncion(), parametros);
 
-        reglasParser.ParametrosContext param = ctx.parametros();
-        ArrayList<Variable> argumentos = new ArrayList<Variable>();
+        ID prototipo = new Funcion(ctx.tipodato().getText(), ctx.ID().getText(), false, false);
+
+        
+
+        if(parametros != null){
             
-        /*declaracion arriba*/
-        if(ctx.instruccion().PYC() != null){
-            
-            tablaS.agregarContexto();
+            tablaSimbolos.addParamContext();
 
-            if(tablaS.encontrarTodosID(id) != null){
-                System.out.println("Error semántico: La de función ya fue declarada. Linea " + ctx.getStart().getLine());
-            } else{
-
-                func.settipoDato(tipoDato);
-                func.setNombre(id);
-                func.setInicializado(Boolean.TRUE);
-                func.setUsado(Boolean.FALSE);
-
-                while(param != null && param.tipodato() != null){
-                    Variable var = new Variable();
-                    var.settipoDato(param.tipodato().getText());
-                    var.setNombre(param.ID().getText());
-                    var.setUsado(Boolean.FALSE);
-                    var.setInicializado(Boolean.FALSE);
-                    argumentos.add(var);
-                    param = param.parametros();
+            for (ID aux : parametros) {  
+                
+                if(tablaSimbolos.encontrarId(ctx.ID().getText()) != null){
+                    errores.idDeclarado(ctx.getStop().getLine(), aux.getNombre());
                 }
                 
-                func.setArgumentos(argumentos);
-
-                tablaS.agregarID(func);
+                tablaSimbolos.agregarId(aux);
             }
 
-        } else if(ctx.instruccion() != null){
+            tablaSimbolos.eliminarContexto();
             
-            func.settipoDato(tipoDato);
-            func.setNombre(id);
-            func.setUsado(Boolean.TRUE);
-
-            while(param != null && param.tipodato() != null){
-                Variable var = new Variable();
-                var.settipoDato(param.tipodato().getText());
-                var.setNombre(param.ID().getText());
-                var.setUsado(Boolean.FALSE);
-                var.setInicializado(Boolean.FALSE);
-                argumentos.add(var);
-                param = param.parametros();
-            }
+            ((Funcion)prototipo).setParams(parametros);
             
-            func.setArgumentos(argumentos);
-
-            tablaS.agregarID(func);
-        } 
-    }
-
-	@Override public void exitLlamadaFuncion(reglasParser.LlamadaFuncionContext ctx) {
-            String id = ctx.ID().getText();
-
-        if(tablaS.encontrarTodosID(id) == null){
-            System.out.println("Error semántico: Se usó un identificador de función sin declarar. Linea " + ctx.getStart().getLine());
-        } else {
-            Funcion f = new Funcion();
-            f.setNombre(id);
-            f.setUsado(Boolean.TRUE);  
-            
-            reglasParser.ParametrosContext param = ctx.parametros();
-            ArrayList<Variable> argumentos = new ArrayList<Variable>();
-
-            while(param != null && param.tipodato() != null){
-                Variable var = new Variable();
-                var.settipoDato(param.tipodato().getText());
-                var.setNombre(param.ID().getText());
-                var.setUsado(Boolean.FALSE);
-                var.setInicializado(Boolean.FALSE);
-                argumentos.add(var);
-                param = param.parametros();
-            }
-            
-            f.setArgumentos(argumentos);
-
-            tablaS.agregarID(f);
         }
-     }
 
-     @Override public void exitErrorPYC(reglasParser.ErrorPYCContext ctx) { 
-        System.out.println("Error sintáctico: falta ';'. Linea: " + ctx.getStart().getLine());
+        tablaSimbolos.insertFunction(prototipo);
     }
 
-	@Override public void exitErrorPAFor(reglasParser.ErrorPAForContext ctx) {
-        System.out.println("Error sintáctico: falta '('. Linea: " + ctx.getStart().getLine());
+    /*Obtener informacion de la funcion*/
+    private ID procesarFuncion(FuncionContext ctx) {
+
+        ArrayList<Variable> parametros = new ArrayList<>();
+
+        ID prototipo = new Funcion(ctx.tipodato().getText(), ctx.ID().getText(), true, false);
+
+        parametros = obtenerParametros(ctx.parametrosFuncion(), parametros);
+
+        if(parametros != null){
+            tablaSimbolos.addParamContext();
+
+            for (ID aux : parametros) {  
+
+                
+                if(tablaSimbolos.encontrarIdLocal(ctx.ID().getText()) != null){
+                    errores.idDeclarado(ctx.getStop().getLine(), aux.getNombre());
+                }
+                tablaSimbolos.agregarId(aux);
+
+            }
+
+            tablaSimbolos.eliminarContexto();
+            
+            ((Funcion)prototipo).setParams(parametros);
+            
+        }
+
+        return prototipo;
     }
 
-	@Override public void exitErrorPAWhile(reglasParser.ErrorPAWhileContext ctx) { 
-        System.out.println("Error sintáctico: falta '('. Linea: " + ctx.getStart().getLine());
+    /* Entro al bloque */
+    @Override public void enterBloque(reglasParser.BloqueContext ctx) {        
+
+        if(ctx.getParent() instanceof FuncionContext) {
+            
+            FuncionContext fContext = (FuncionContext)ctx.getParent();
+            
+            ID func = procesarFuncion(fContext);      
+            
+            tablaSimbolos.insertFunction(func);
+            
+            tablaSimbolos.agregarContexto();
+
+
+            if(fContext.parametrosFuncion() != null){
+
+                for(ID id : ((Funcion) func).getParams()){
+                    
+                    tablaSimbolos.agregarId(id);
+
+                }
+
+            }
+            
+        } else{
+            tablaSimbolos.agregarContexto();
+        }
     }
 
-	@Override public void exitErrorPAIf(reglasParser.ErrorPAIfContext ctx) { 
-        System.out.println("Error sintáctico: falta '('. Linea: " + ctx.getStart().getLine());
+
+    private ArrayList<FactorContext> obtenerFactores (ParseTree ctx) {
+        
+        ArrayList<FactorContext> factores = new ArrayList<FactorContext>();
+ 
+        Collection<ParseTree> param = Trees.findAllRuleNodes(ctx, reglasParser.RULE_factor);
+
+        for(ParseTree parseTree : param){
+
+            factores.add((FactorContext)parseTree);
+
+        }
+
+        if(factores.size() > 0) {
+            return factores;
+        } else{
+            return null;
+        }
+    } 
+
+    /*Comparo tipo de datos de dos valores*/
+
+    private boolean compararTipos(String tipoId, FactorContext factor) {
+        
+        if (factor.INTEGER() != null && tipoId.equals("int")) {
+            return true;
+        }
+        if (factor.DECIMAL() != null && tipoId.equals("double")) {
+            return true;
+        }
+        if (factor.CHARACTER() != null && tipoId.equals("char")) {
+            return true;
+        }
+        
+        if(factor.llamadaFuncion() != null){
+
+            ID id = tablaSimbolos.encontrarId(factor.llamadaFuncion().ID().getText());
+
+            if(id != null){
+
+                if(tipoId.equals(id.getTipoDato())){
+                    
+                    return true;
+
+                }else{  
+
+                    return false;
+
+                }
+            }
+        }
+
+        if(factor.ID() != null){
+
+
+            ID id = tablaSimbolos.encontrarId(factor.ID().getText());
+
+            if(id != null){
+
+                if(tipoId.equals(id.getTipoDato())){
+                    
+                    return true;
+
+                }else{  
+
+                    return false;
+
+                }
+            }else{
+
+                errores.idNoDeclarado(factor.getStop().getLine(), factor.ID().getText());
+
+            }           
+
+        }
+        
+        return false;
+	}
+
+
+    /*Veo si tiene return o no y si corresponde lo que se le colocó*/
+    private void procesarReturn(FuncionContext ctx) {
+
+        Collection<ParseTree> returns = Trees.findAllRuleNodes(ctx, reglasParser.RULE_returnD);       
+
+        if(ctx.tipodato().getText().equals("void") && returns.size() != 0){
+
+            errores.returnEnFuncionVoid(ctx.getStop().getLine(), ctx.ID().getText());
+
+        }else if(!ctx.tipodato().getText().equals("void") && returns.size() > 0){
+           
+            ArrayList<FactorContext> factores = obtenerFactores(ctx);
+
+            if(factores != null){                
+
+                for (FactorContext factor : factores) {
+                   
+                    if (!compararTipos(ctx.tipodato().getText(), factor)){
+                        errores.returnDiferenteAlTipoDeFuncion(ctx.getStart().getLine());
+                        return;
+                    }
+                }
+
+                procesarFactores(ctx.tipodato().getText(), factores);
+            }         
+        }else if(!ctx.tipodato().getText().equals("void") && !ctx.ID().getText().equals("main") && returns.size() == 0){
+            errores.noTieneReturnEnFuncionNoVoid(ctx.getStart().getLine(), ctx.ID().getText());
+        }
+        
     }
 
-	@Override public void exitErrorPALlamadaFuncion(reglasParser.ErrorPALlamadaFuncionContext ctx) { 
-        System.out.println("Error sintáctico: falta '('. Linea: " + ctx.getStart().getLine());
+    /* Llamada de la Funcion */
+	@Override public void exitLlamadaFuncion(reglasParser.LlamadaFuncionContext ctx) {
+        
+        ID funcion = tablaSimbolos.encontrarId(ctx.ID().getText());
+
+        if(funcion != null){
+            procesarLlamadaFuncion(null, ctx);  
+        }  
+    
     }
 
-	@Override public void exitErrorPADefFuncion(reglasParser.ErrorPADefFuncionContext ctx) { 
-        System.out.println("Error sintáctico: falta '('. Linea: " + ctx.getStart().getLine());
+
+    private void procesarLlamadaFuncion(String tipo, LlamadaFuncionContext ctx) {
+
+        ID funcion = tablaSimbolos.encontrarId(ctx.ID().getText());
+
+        if(funcion == null){
+            errores.funcionNoDeclarada(ctx.getStop().getLine(), ctx.ID().getText());
+            return;
+        }
+
+        ArrayList<FactorContext> factores = obtenerFactores(ctx.parametrosLlamada());
+
+        if(factores != null){
+
+            int cantidadFact = obtenerFactores(ctx.parametrosLlamada()).size();
+
+            if (!(funcion instanceof Funcion)){
+                
+                errores.llamadaANoFuncion(ctx.getStart().getLine(), ctx.ID().getText());
+                return;
+
+            }else if (cantidadFact < ((Funcion) funcion).getParams().size()){
+
+                errores.pocosArgumentos(ctx.getStart().getLine(), ctx.ID().getText());
+                return;
+
+            } else if (cantidadFact > ((Funcion) funcion).getParams().size()){
+
+                errores.muchosArgumentos(ctx.getStart().getLine(), ctx.ID().getText());
+                return;
+
+            }else{
+                if(procesarFactores(funcion.getTipoDato(), factores)){
+            
+                    funcion.setInicializado(true);
+                }
+            }
+        }
+        
+        
+        funcion.setUsado(true); 
     }
 
-	@Override public void exitErrorPCFor(reglasParser.ErrorPCForContext ctx) {
-        System.out.println("Error sintáctico: falta ')'. Linea: " + ctx.getStart().getLine());
-     }
+    /* Declaracion de Variables */
+	@Override public void exitDeclaracion(reglasParser.DeclaracionContext ctx) {     
+        if(ctx.asignacion() == null){
+            
+            ID id = tablaSimbolos.encontrarIdLocal(ctx.ID().getText());
 
-	@Override public void exitErrorPCWhile(reglasParser.ErrorPCWhileContext ctx) { 
-        System.out.println("Error sintáctico: falta ')'. Linea: " + ctx.getStart().getLine());
+            if(id == null){
+    
+                ID id2 = new Variable(ctx.tipodato().getText(), ctx.ID().getText(), true, false);          
+               
+                tablaSimbolos.agregarId(id2);
+    
+            }else{
+                errores.idDeclarado(ctx.getStop().getLine(), id.getNombre());
+            } 
+        } else{
+            ArrayList<FactorContext> factores = obtenerFactores(ctx);
+
+            if(factores != null){
+                procesarFactores(ctx.tipodato().getText(), factores);
+            }            
+        }     
     }
 
-	@Override public void exitErrorPCIf(reglasParser.ErrorPCIfContext ctx) {
-        System.out.println("Error sintáctico: falta ')'. Linea: " + ctx.getStart().getLine());
-     }
 
-	@Override public void exitErrorPCLlamadaFuncion(reglasParser.ErrorPCLlamadaFuncionContext ctx) { 
-        System.out.println("Error sintáctico: falta ')'. Linea: " + ctx.getStart().getLine());
+    /* Asignacion de variables */
+	@Override public void exitAsignacion(reglasParser.AsignacionContext ctx) {
+        
+        ID id = tablaSimbolos.encontrarId(ctx.ID().getText());
+
+        if(ctx.getParent() instanceof DeclaracionContext){
+            id = new Variable(((DeclaracionContext) ctx.getParent()).tipodato().getText(), ctx.ID().getText(), true, false);
+            tablaSimbolos.agregarId(id);
+
+        }
+
+        if(id == null){
+            errores.idNoDeclarado(ctx.getStop().getLine(), ctx.ID().getText());
+            return;
+        }
+
+        ArrayList<FactorContext> factores = obtenerFactores(ctx);
+
+        if(factores == null){
+            errores.idNoAsignado(ctx.getStop().getLine(), ctx.ID().getText());
+        }
+
+        if(procesarFactores(id.getTipoDato(), factores)){
+            
+            id.setInicializado(true);
+        }
+        
+
     }
 
-	@Override public void exitErrorPCDefFuncion(reglasParser.ErrorPCDefFuncionContext ctx) { 
-        System.out.println("Error sintáctico: falta ')'. Linea: " + ctx.getStart().getLine());
+    private boolean procesarFactores(String tipoDato, ArrayList<FactorContext> factores) {
+
+        FactorContext fc;
+        boolean e = true;
+
+        for (ParseTree parseTree : factores) {
+
+            fc = (FactorContext) parseTree;   
+
+            if(fc.ID() != null){
+
+                ID id = tablaSimbolos.encontrarId(fc.ID().getText());
+
+                if(id == null){
+
+                    errores.idNoDeclarado(fc.getStop().getLine(), fc.ID().getText());
+
+                }else if(!id.isInicializado()){
+                    
+                    errores.idNoInicializado(fc.getStop().getLine(), fc.ID().getText());
+
+                }else{
+                    id.setUsado(true);
+                    if(compararTipos(tipoDato, fc)){
+                        e = true;
+                    } else{
+                        e = false;
+                    }                   
+
+                }
+
+
+            } else if(fc.llamadaFuncion() != null){
+                
+                procesarLlamadaFuncion(tipoDato, fc.llamadaFuncion());
+                
+            } else if (fc.INTEGER() != null || fc.DECIMAL() != null || fc.CHARACTER() != null) {
+
+                if (!compararTipos(tipoDato, fc)){
+                    e = false;
+                }
+            }
+        }
+        return e;
     }
+
+    /* Fin del bloque */
+    @Override public void exitBloque(reglasParser.BloqueContext ctx) { 
+       
+        if(ctx.getParent() instanceof FuncionContext){
+            procesarReturn((FuncionContext)ctx.getParent());
+        }
+        errores.idNoUsado(tablaSimbolos.sinUso()); 
+    }       
+
+    /* Fin del Programa */
+	@Override public void exitProg(reglasParser.ProgContext ctx) { 
+        tablaSimbolos.imprimirTablaSimbolo();        
+        errores.idNoUsado(tablaSimbolos.sinUso());      
+    }
+
+
+
 }

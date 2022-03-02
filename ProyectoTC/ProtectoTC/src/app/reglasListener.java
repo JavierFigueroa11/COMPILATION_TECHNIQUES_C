@@ -1,4 +1,4 @@
-// Generated from /home/sofia/Documentos/Facu/LexerSimple (copia) (2)/src/app/reglas.g4 by ANTLR 4.7.1
+// Generated from /home/javierfigueroa/Documentos/Tecnicas de Compilación/COMPILATION_TECHNIQUES_C/ProyectoTC/ProtectoTC/src/app/reglas.g4 by ANTLR 4.8
 
     package app;
 
@@ -60,26 +60,6 @@ public interface reglasListener extends ParseTreeListener {
 	 */
 	void exitTipodato(reglasParser.TipodatoContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link reglasParser#asignacionDatos}.
-	 * @param ctx the parse tree
-	 */
-	void enterAsignacionDatos(reglasParser.AsignacionDatosContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link reglasParser#asignacionDatos}.
-	 * @param ctx the parse tree
-	 */
-	void exitAsignacionDatos(reglasParser.AsignacionDatosContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link reglasParser#declaracionDatos}.
-	 * @param ctx the parse tree
-	 */
-	void enterDeclaracionDatos(reglasParser.DeclaracionDatosContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link reglasParser#declaracionDatos}.
-	 * @param ctx the parse tree
-	 */
-	void exitDeclaracionDatos(reglasParser.DeclaracionDatosContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link reglasParser#asignacion}.
 	 * @param ctx the parse tree
 	 */
@@ -89,6 +69,36 @@ public interface reglasListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitAsignacion(reglasParser.AsignacionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link reglasParser#declaracion}.
+	 * @param ctx the parse tree
+	 */
+	void enterDeclaracion(reglasParser.DeclaracionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link reglasParser#declaracion}.
+	 * @param ctx the parse tree
+	 */
+	void exitDeclaracion(reglasParser.DeclaracionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link reglasParser#asignacionValor}.
+	 * @param ctx the parse tree
+	 */
+	void enterAsignacionValor(reglasParser.AsignacionValorContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link reglasParser#asignacionValor}.
+	 * @param ctx the parse tree
+	 */
+	void exitAsignacionValor(reglasParser.AsignacionValorContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link reglasParser#operacion}.
+	 * @param ctx the parse tree
+	 */
+	void enterOperacion(reglasParser.OperacionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link reglasParser#operacion}.
+	 * @param ctx the parse tree
+	 */
+	void exitOperacion(reglasParser.OperacionContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link reglasParser#exprLog}.
 	 * @param ctx the parse tree
@@ -100,6 +110,26 @@ public interface reglasListener extends ParseTreeListener {
 	 */
 	void exitExprLog(reglasParser.ExprLogContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link reglasParser#exprOR}.
+	 * @param ctx the parse tree
+	 */
+	void enterExprOR(reglasParser.ExprORContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link reglasParser#exprOR}.
+	 * @param ctx the parse tree
+	 */
+	void exitExprOR(reglasParser.ExprORContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link reglasParser#disy}.
+	 * @param ctx the parse tree
+	 */
+	void enterDisy(reglasParser.DisyContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link reglasParser#disy}.
+	 * @param ctx the parse tree
+	 */
+	void exitDisy(reglasParser.DisyContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link reglasParser#exprAND}.
 	 * @param ctx the parse tree
 	 */
@@ -110,45 +140,45 @@ public interface reglasListener extends ParseTreeListener {
 	 */
 	void exitExprAND(reglasParser.ExprANDContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link reglasParser#exprNOT}.
+	 * Enter a parse tree produced by {@link reglasParser#conj}.
 	 * @param ctx the parse tree
 	 */
-	void enterExprNOT(reglasParser.ExprNOTContext ctx);
+	void enterConj(reglasParser.ConjContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link reglasParser#exprNOT}.
+	 * Exit a parse tree produced by {@link reglasParser#conj}.
 	 * @param ctx the parse tree
 	 */
-	void exitExprNOT(reglasParser.ExprNOTContext ctx);
+	void exitConj(reglasParser.ConjContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link reglasParser#exprComp}.
+	 * Enter a parse tree produced by {@link reglasParser#exprIgualdad}.
 	 * @param ctx the parse tree
 	 */
-	void enterExprComp(reglasParser.ExprCompContext ctx);
+	void enterExprIgualdad(reglasParser.ExprIgualdadContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link reglasParser#exprComp}.
+	 * Exit a parse tree produced by {@link reglasParser#exprIgualdad}.
 	 * @param ctx the parse tree
 	 */
-	void exitExprComp(reglasParser.ExprCompContext ctx);
+	void exitExprIgualdad(reglasParser.ExprIgualdadContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link reglasParser#exprArit}.
+	 * Enter a parse tree produced by {@link reglasParser#comp}.
 	 * @param ctx the parse tree
 	 */
-	void enterExprArit(reglasParser.ExprAritContext ctx);
+	void enterComp(reglasParser.CompContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link reglasParser#exprArit}.
+	 * Exit a parse tree produced by {@link reglasParser#comp}.
 	 * @param ctx the parse tree
 	 */
-	void exitExprArit(reglasParser.ExprAritContext ctx);
+	void exitComp(reglasParser.CompContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link reglasParser#factor}.
+	 * Enter a parse tree produced by {@link reglasParser#comparaciones}.
 	 * @param ctx the parse tree
 	 */
-	void enterFactor(reglasParser.FactorContext ctx);
+	void enterComparaciones(reglasParser.ComparacionesContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link reglasParser#factor}.
+	 * Exit a parse tree produced by {@link reglasParser#comparaciones}.
 	 * @param ctx the parse tree
 	 */
-	void exitFactor(reglasParser.FactorContext ctx);
+	void exitComparaciones(reglasParser.ComparacionesContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link reglasParser#expresion}.
 	 * @param ctx the parse tree
@@ -160,6 +190,46 @@ public interface reglasListener extends ParseTreeListener {
 	 */
 	void exitExpresion(reglasParser.ExpresionContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link reglasParser#exp}.
+	 * @param ctx the parse tree
+	 */
+	void enterExp(reglasParser.ExpContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link reglasParser#exp}.
+	 * @param ctx the parse tree
+	 */
+	void exitExp(reglasParser.ExpContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link reglasParser#termino}.
+	 * @param ctx the parse tree
+	 */
+	void enterTermino(reglasParser.TerminoContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link reglasParser#termino}.
+	 * @param ctx the parse tree
+	 */
+	void exitTermino(reglasParser.TerminoContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link reglasParser#term}.
+	 * @param ctx the parse tree
+	 */
+	void enterTerm(reglasParser.TermContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link reglasParser#term}.
+	 * @param ctx the parse tree
+	 */
+	void exitTerm(reglasParser.TermContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link reglasParser#factor}.
+	 * @param ctx the parse tree
+	 */
+	void enterFactor(reglasParser.FactorContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link reglasParser#factor}.
+	 * @param ctx the parse tree
+	 */
+	void exitFactor(reglasParser.FactorContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link reglasParser#f}.
 	 * @param ctx the parse tree
 	 */
@@ -170,25 +240,35 @@ public interface reglasListener extends ParseTreeListener {
 	 */
 	void exitF(reglasParser.FContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link reglasParser#definicionFuncion}.
+	 * Enter a parse tree produced by {@link reglasParser#funcion}.
 	 * @param ctx the parse tree
 	 */
-	void enterDefinicionFuncion(reglasParser.DefinicionFuncionContext ctx);
+	void enterFuncion(reglasParser.FuncionContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link reglasParser#definicionFuncion}.
+	 * Exit a parse tree produced by {@link reglasParser#funcion}.
 	 * @param ctx the parse tree
 	 */
-	void exitDefinicionFuncion(reglasParser.DefinicionFuncionContext ctx);
+	void exitFuncion(reglasParser.FuncionContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link reglasParser#parametros}.
+	 * Enter a parse tree produced by {@link reglasParser#prototipoFuncion}.
 	 * @param ctx the parse tree
 	 */
-	void enterParametros(reglasParser.ParametrosContext ctx);
+	void enterPrototipoFuncion(reglasParser.PrototipoFuncionContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link reglasParser#parametros}.
+	 * Exit a parse tree produced by {@link reglasParser#prototipoFuncion}.
 	 * @param ctx the parse tree
 	 */
-	void exitParametros(reglasParser.ParametrosContext ctx);
+	void exitPrototipoFuncion(reglasParser.PrototipoFuncionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link reglasParser#parametrosFuncion}.
+	 * @param ctx the parse tree
+	 */
+	void enterParametrosFuncion(reglasParser.ParametrosFuncionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link reglasParser#parametrosFuncion}.
+	 * @param ctx the parse tree
+	 */
+	void exitParametrosFuncion(reglasParser.ParametrosFuncionContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link reglasParser#llamadaFuncion}.
 	 * @param ctx the parse tree
@@ -199,6 +279,16 @@ public interface reglasListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitLlamadaFuncion(reglasParser.LlamadaFuncionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link reglasParser#parametrosLlamada}.
+	 * @param ctx the parse tree
+	 */
+	void enterParametrosLlamada(reglasParser.ParametrosLlamadaContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link reglasParser#parametrosLlamada}.
+	 * @param ctx the parse tree
+	 */
+	void exitParametrosLlamada(reglasParser.ParametrosLlamadaContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link reglasParser#cicloFor}.
 	 * @param ctx the parse tree
@@ -230,123 +320,13 @@ public interface reglasListener extends ParseTreeListener {
 	 */
 	void exitCicloIf(reglasParser.CicloIfContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link reglasParser#returnDatos}.
+	 * Enter a parse tree produced by {@link reglasParser#returnD}.
 	 * @param ctx the parse tree
 	 */
-	void enterReturnDatos(reglasParser.ReturnDatosContext ctx);
+	void enterReturnD(reglasParser.ReturnDContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link reglasParser#returnDatos}.
+	 * Exit a parse tree produced by {@link reglasParser#returnD}.
 	 * @param ctx the parse tree
 	 */
-	void exitReturnDatos(reglasParser.ReturnDatosContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link reglasParser#errorPYC}.
-	 * @param ctx the parse tree
-	 */
-	void enterErrorPYC(reglasParser.ErrorPYCContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link reglasParser#errorPYC}.
-	 * @param ctx the parse tree
-	 */
-	void exitErrorPYC(reglasParser.ErrorPYCContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link reglasParser#errorPAFor}.
-	 * @param ctx the parse tree
-	 */
-	void enterErrorPAFor(reglasParser.ErrorPAForContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link reglasParser#errorPAFor}.
-	 * @param ctx the parse tree
-	 */
-	void exitErrorPAFor(reglasParser.ErrorPAForContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link reglasParser#errorPAWhile}.
-	 * @param ctx the parse tree
-	 */
-	void enterErrorPAWhile(reglasParser.ErrorPAWhileContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link reglasParser#errorPAWhile}.
-	 * @param ctx the parse tree
-	 */
-	void exitErrorPAWhile(reglasParser.ErrorPAWhileContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link reglasParser#errorPAIf}.
-	 * @param ctx the parse tree
-	 */
-	void enterErrorPAIf(reglasParser.ErrorPAIfContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link reglasParser#errorPAIf}.
-	 * @param ctx the parse tree
-	 */
-	void exitErrorPAIf(reglasParser.ErrorPAIfContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link reglasParser#errorPALlamadaFuncion}.
-	 * @param ctx the parse tree
-	 */
-	void enterErrorPALlamadaFuncion(reglasParser.ErrorPALlamadaFuncionContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link reglasParser#errorPALlamadaFuncion}.
-	 * @param ctx the parse tree
-	 */
-	void exitErrorPALlamadaFuncion(reglasParser.ErrorPALlamadaFuncionContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link reglasParser#errorPADefFuncion}.
-	 * @param ctx the parse tree
-	 */
-	void enterErrorPADefFuncion(reglasParser.ErrorPADefFuncionContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link reglasParser#errorPADefFuncion}.
-	 * @param ctx the parse tree
-	 */
-	void exitErrorPADefFuncion(reglasParser.ErrorPADefFuncionContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link reglasParser#errorPCFor}.
-	 * @param ctx the parse tree
-	 */
-	void enterErrorPCFor(reglasParser.ErrorPCForContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link reglasParser#errorPCFor}.
-	 * @param ctx the parse tree
-	 */
-	void exitErrorPCFor(reglasParser.ErrorPCForContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link reglasParser#errorPCWhile}.
-	 * @param ctx the parse tree
-	 */
-	void enterErrorPCWhile(reglasParser.ErrorPCWhileContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link reglasParser#errorPCWhile}.
-	 * @param ctx the parse tree
-	 */
-	void exitErrorPCWhile(reglasParser.ErrorPCWhileContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link reglasParser#errorPCIf}.
-	 * @param ctx the parse tree
-	 */
-	void enterErrorPCIf(reglasParser.ErrorPCIfContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link reglasParser#errorPCIf}.
-	 * @param ctx the parse tree
-	 */
-	void exitErrorPCIf(reglasParser.ErrorPCIfContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link reglasParser#errorPCLlamadaFuncion}.
-	 * @param ctx the parse tree
-	 */
-	void enterErrorPCLlamadaFuncion(reglasParser.ErrorPCLlamadaFuncionContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link reglasParser#errorPCLlamadaFuncion}.
-	 * @param ctx the parse tree
-	 */
-	void exitErrorPCLlamadaFuncion(reglasParser.ErrorPCLlamadaFuncionContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link reglasParser#errorPCDefFuncion}.
-	 * @param ctx the parse tree
-	 */
-	void enterErrorPCDefFuncion(reglasParser.ErrorPCDefFuncionContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link reglasParser#errorPCDefFuncion}.
-	 * @param ctx the parse tree
-	 */
-	void exitErrorPCDefFuncion(reglasParser.ErrorPCDefFuncionContext ctx);
+	void exitReturnD(reglasParser.ReturnDContext ctx);
 }
